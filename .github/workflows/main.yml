@@ -3,7 +3,7 @@ on: workflow_dispatch
 env: 
     AWS_REGION: us-east-1
     ECR_REPOSITORY: vprofileapp
-    EKS_CLUSTER: vprofile-eks 
+    EKS_CLUSTER: gitops-eks 
 
 jobs:
     Testing: 
@@ -88,8 +88,8 @@ jobs:
             - name: Get Kube config file 
               run: aws eks update-kubeconfig --region ${{env.AWS_REGION}} --name gitops-eks
 
-            - name: Print config file 
-              run: cat ~/.kube/config 
+           # - name: Print config file 
+           #   run: cat ~/.kube/config 
 
             - name: Login to ECR 
               run: kubectl create secret docker-registry regcred --docker-server=${{ secrets.REGISTRY }} --docker-username=AWS --docker-password=$(aws ecr get-login-password)
